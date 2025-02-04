@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "C++ Debug",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}/a.exe",  // Adjust if your output file has a different name
+          "args": [],
+          "stopAtEntry": false,
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": true,
+          "MIMode": "gdb",  // Use GDB for debugging
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+          ],
+          "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",  // Make sure this path points to GDB
+          "preLaunchTask": "build",  // The build task that compiles your code before debugging
+          "miDebuggerArgs": "",
+          "logging": { "engineLogging": false },
+          "visualizerFile": "${workspaceFolder}/.vscode/visualizers",
+          "filterStdout": true,
+          "filterStderr": true
+      }
+  ]
+}
