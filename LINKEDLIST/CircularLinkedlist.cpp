@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -16,28 +15,32 @@ void CreateCLL(int A[], int n)
 
   head = new node;
   head->data = A[0];
-
-  head->next = NULL;
+  head->next = head; // Initialize circular link
   last = head;
+
   for (i = 1; i < n; i++)
   {
     t = new node;
     t->data = A[i];
-    t->next = NULL;
+    t->next = head; // Maintain circular connection
     last->next = t;
     last = t;
   }
 }
+
 void Display(node *p)
 {
-  int flag = 0;
-  if (p != head || flag == 0)
+  if (p == NULL)
+    return;
+
+  node *temp = p;
+  do
   {
-    flag = 1;
-    cout << "->" << p->data;
-    Display(p->next);
-  }
-  flag = 0;
+    cout << "->" << temp->data;
+    temp = temp->next;
+  } while (temp != head);
+
+  cout << endl;
 }
 
 int main()
