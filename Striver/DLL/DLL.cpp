@@ -114,7 +114,24 @@ Node *removeKElement(Node *head, int k)
   }
   return head;
 }
+void deleteNode(Node *temp)
+{
+  Node *prev = temp->back;
+  Node *front = temp->next;
 
+  if (front == nullptr)
+  {
+    prev->next = nullptr;
+    temp->back = nullptr;
+    free(temp);
+    return;
+  }
+  prev->next = front;
+  front->back = prev;
+  temp->next = nullptr;
+  temp->back = nullptr;
+  free(temp);
+}
 void print(Node *head)
 {
   while (head != nullptr)
@@ -125,12 +142,85 @@ void print(Node *head)
     head = head->next;
   }
 }
+
+Node *insertBeforeHead(Node *head, int val)
+{
+  Node *newHead = new Node(val, head, nullptr);
+
+  head->back = newHead;
+  return newHead;
+}
+
+Node *insertBeforeTail(Node *head, int val)
+{
+
+  if (head->next == nullptr)
+    return insertBeforeHead(head, val);
+  Node *tail = head;
+  while (tail->next != nullptr)
+  {
+    tail = tail->next;
+  }
+  Node *prev = tail->back;
+  Node *newNode = new Node(val, tail, prev);
+  prev->next = newNode;
+  tail->back = newNode;
+  return head;
+}
+Node *insetAtKthPos(Node *head, int k, int val)
+{
+  if (k == 1)
+    return insertBeforeHead(head, val);
+  Node *temp = head;
+  int cnt = 0;
+  while (temp != nullptr)
+  {
+    cnt++;
+    if (cnt == k)
+      break;
+    temp = temp->next;
+  }
+  Node *prev = temp->back;
+  Node *newNode = new Node(val, temp, prev);
+  prev->next = newNode;
+  temp->back = newNode;
+  return head;
+}
+void insertBeforeNode(Node *node, int val)
+{
+  Node *prev = node->back;
+  Node *newNode = new Node(val, node, prev);
+  prev->next = newNode;
+  node->back = newNode;
+}
+Node *reverseDLL(Node *head)
+{
+  if (head == NULL || head->next == nullptr)
+    return head;
+
+  Node *last = NULL;
+  Node *current = head;
+  while (current != NULL)
+  {
+    last = current->back;
+    current->back = current->next;
+    current->next = last;
+    current = current->back;
+  }
+  Node *newHead = last->back;
+  return last->back;
+}
 int main()
 {
   vector<int> arr = {1, 5, 7, 6, 9};
 
   Node *head = convertArr2DLL(arr);
-  head = removeKElement(head, 1);
+  // head = removeKElement(head, 1);
+  // deleteNode(head->next->next->back);
+  // head = insetAtKthPos(head, 1, 89);
+  // insertBeforeNode(head->next, 10);
+  head = reverseDLL(head);
+
   print(head);
   return 0;
 }
