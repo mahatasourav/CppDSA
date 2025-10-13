@@ -1,4 +1,10 @@
+// Problem : add 1 to a number represented as linked list
+// Time Complexity : O(n)
+// Problem Link : https://takeuforward.org/plus/dsa/problems/add-one-to-a-number-represented-by-ll
+// Video Solution : https://www.youtube.com/watch?si=uRgU9S4r5cVmnUy7&v=aXQWhbvT3w0&feature=youtu.be
 
+#include <bits/stdc++.h>
+using namespace std;
 
 /*
 Definition of singly linked list:
